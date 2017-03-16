@@ -1,0 +1,110 @@
+After AI mastered chess, go, 2-player poker, image and language recognition, car driving, and even Atari games, what new challenges should it tackle?
+
+I propose a negleted area: social interactions
+Specifically on your model: 
+
+* You should put agents on a Prisioneer dilemma-like situation. They can give energy (help) or remove energy (hit) others, and seek to  maximize absolute or relative energy. Will they become nice, retaliative, gossip each other for reputation and status ? Create coalitions that fight one another?
+
+* Mating agents (complex issues of kin and sexual selection arise). As it would be too expensive to evelve goal functions. it needs to be specified carefully.
+
+---------------
+Potential uses:
+---------------
+Socially competent agents will be indispensable in near future for applications as:
+
+* Personal assistants, responsible chatbots
+* Healthcare Robots 
+* Non-Player Characters in videogames (NPCs). 
+
+And even:
+
+* insights into consciousness - it probably evolved from the need to socially model yourself and others
+* the Value Alignment problem - as comparable models to human needs and values 
+
+-----------
+My research:
+-----------
+
+I made some models similar to yours. Agents need food and can give/hit each other. They were simpler: didn't learn via RL. Instead, they mate and alleles for the following traits compete:
+
+* paternal care: help nobody vs help kin (chance of having same genes) vs help green beard (those w/ same gene) 
+
+* reciprocity: altruist vs selfish vs tit-for-tat
+
+* recessive genes - avoid incest/inbreeding -> genes for exogamy (female move away from birthplace to mate)
+
+* sexual selection - choosiness on better fit mates (that consume less energy)
+
+* group selection - help these that live near you
+
+
+-------------------------------
+Future development (veeery speculative)
+-------------------------------
+
+What is needed for agents being more capable on social issues?
+
+Steven pinker says:
+	"If LAS [a language learning model] were built like Winograd’s (1972) program to converse with another speaker instead of receiving sentences passively, it would have representational structures that conceivably could be useful in acquiring rules for interrogatives, conditionals, imperatives, and so on. And if it had a more childlike semantic representational system, which categorized the world into actors, actions, and recipients of actions, possessors and possessed, objects and locations, and so on, its linguistic abilities might even resemble those of young children" 
+
+Future agents´ mind and language should have long-term memory, with minds and language structured along (chains of) events (actors, agent, etc). That is, narrative, like us.  
+
+I see two options for training, bootstraping, a group of agents iterating to higher functional complexity and skills. Would a group of children left alone since very young generate a functional society?
+ 
+If it interactive (one needs to learn to ACT socially) and progressive (easy to more complex skills). 
+
+I point to Annabel:
+	Cognitive Neural Architecture Able to Learn and Communicate through Natural Language, B Golosio, A Cangelosi, O Gamotina, G L Masala, http://dx.doi.org/10.1371/journal.pone.0140866
+
+'She' learns - by interactive communication with reinforcement -  grammar rules, question answering, navigation and counting. Let's do the same, now with social situations. 
+Needs cautious Motivation: Self-motivated curiosity and skill training. 
+
+
+
+
+
+Posterior refinements have potential to address many aspects of human condition:
+
+* social relations - kin, romance, friendship, reciprocal, in-outgroup 
+* social selection - male coalitions and female dyads 
+* sexual selection - arts, sport, storytelling, dance, singing, humor 
+* group selection -  morality, war, spirituality, cultural variations, 
+* high level skills - science, philosophy,  mathematics 
+
+Finally, creating something that is like us, but also dissimilar, will bear important insights.
+
+-------
+
+Any comments are welcome.
+
+Regards,
+Filipe Zappe
+
+Software and Energy Engineer
+
+
+
+
+
+
+
+
+
+It is labor intensive, though. To have the other agents that ours interact and learns from, one needs lots of  workers (Mechanical Turk?) or volunteers. Or maybe create a life simulation/ RPG  game ( like The Sims)  that interact with our triining agent (actiong as a NPC) 
+
+And if the learning is interactive, would we need to re-teach from zero every time we upgrade the network architecture? How can one do transfer leanrning of skills thatr are implicit on network weights, non-symbolic ? Should we adopt semi-symbolic rules?
+
+
+
+The use of a canonical environment allow diverse researchers to share data, algorithms and architectures, as well as to compare benchmarks and task achievements. Concrete computational models prevent us from wasting time on (for now) unanswerable philosophical questions or how to avoid real-world noise. It leads us to ask specific, answerable questions, See 
+
+
+We suggest rules baed on connectionism [Spawn] for flexible learning [Annabel] , and inspired by, thinking is processing event/predicates, that are vector-implemented ) supporting analogical/metaphtrical thinking based on bound properties. (‘I love thee as a fish like water, so please kiss me’)
+Modules for cauaslity/logic, psychology(theory of mind and spatial/numerical/intensity reasoning. Brain based architecture (PFC, BasalGanglia, Hippocampius, Cortex) and a hyerarchical loop of active info seeking and goal action choice
+
+
+
+
+
+
+
