@@ -1,0 +1,263 @@
+<html>
+<body>
+<div id = "out">
+</div>
+<script type="text/javascript">
+
+out = document.getElementById('out')
+
+	// _ -> <space>
+
+rules = [
+
+[R, INT, R],
+[INT, "okay yeah well so hey look huh hi bye wow oops ah sorry thanks" ],
+
+
+	//indicative
+[R, INT, NP, VP],
+
+
+	//imperative!
+[R,  "_ please, may-you", VP,  "thanks," !"],
+
+	//interrogative? 
+
+[R, "who where why what when", VP, "?"],      who love me? // he is the person that love me
+[R, NP, VP, "?" ], 				// put aux verb on the begin...
+
+
+[VP, VP, ADV],
+
+
+//quantity"
+//[all,some, many , enough] the very [big white happy] people
+
+[NP, QTY, DET , N],
+
+[DET, "QTY _", "the a _"] ,
+[ADJ, like N],
+[NP, 'part of' NP],
+
+[NUM, "all some none many more less half 0 1 2 3 4 5 10 20 50 100"],
+
+[O, "more less" ,ADJ" ],
+[O, "more less" ,ADJ ,"than" ,NP ],
+[ADV -> "very" ADJ],
+
+
+ADJ0 , "
+ADJ , ADJ ADJ
+
+
+	//logic
+
+[S, "but and then", S],
+[V, V "and or", V],
+[VP, VP "and or", VP],
+[NP, NP, "and or", NP],
+[P, P, "and or", P],
+[ADJ, ADJ "and or", ADJ],
+[VP, not VP],
+[ADJ, "true, false"],
+
+
+[NP, NP , "that", VP]
+
+
+[AG, "i, you, someone,"],   
+[AG, "we he she they], 
+[AG, "the person that", S]
+
+
+"every any some no" "one body thing"
+"this these, those, "
+
+	//actions/senses
+[V, "move see speak hear give live die mate give-birth" ]
+[ADJ, "pregnant young old male female"]
+
+N -> "age"
+[ADJ, "new old early late"
+[N, "delay begin last end" 
+[V, "delay begin last end" 
+
+//space path origin goalnear far  come, leave, wait,search/find,, 
+
+[V, V, ADVT]
+[ADVT -> "again never now soon fast slow only"
+[ADVT, NUM, "times"]
+before after while
+V -> 
+
+
+//motion ",
+V -> "move turn walk run go come-from reach, arrive  go-away-from
+reach approach PLACE, N
+arrive at PLACE 
+move, walk, run, go 'to-place'
+follow  N  place put, stay, wait remain leave quiet collect join separate divide hide"]
+VP VP at PLACE
+VP 
+
+
+
+bdi:  – ,
+
+V -> V1+"-ed will" + V
+VP -> "want think feel know learn forget " [O ,"that"+ S]
+
+//object,  this/that, same/other/else, food, (words?) 
+
+modal: 
+
+[V , MOD, V]
+[MOD ,"do can could will would may might shall should must ought-to have-to"] 
+
+ //(wishes, desires, requests, warnings, prohibitions, commands, predictions, possibilities, (ir)reality
+ 
+
+
+PREP -> "in on to with of for at like about from into by until as than without"
+PREP -> "beside despite except by-means-of beyond  in according-to including instead of"
+
+
+[VP, "choose try" NP]
+[VP, "choose try" ,"to", VP]
+[VP, "choose try" ,"to", VP "-ing"]
+[S, "there is", O]
+[S, "if", S ,"then", S"]
+[S, NP, "happens"] // @#$%
+
+
+//kin",
+
+[N,  KIN]
+[N, KIN, "of", N]
+[KIN, "human_being man woman father mother son daugther sibling  cousin, uncle,  boy girl child infant husband wife"]
+
+trade & possession"
+[VP, "have own, possess take grasp seize hold get obtain keep, retain give return, give back restore save preserve destroy damage spoil seek find lose", O ]
+
+
+senses
+
+[ADJ  "pure right wrong"],
+[V, "sin"], 
+[V, "blame praise" + N], 
+[N, "sin" , "error"],
+
+//emotion feeling, "passion care ",,
+ 
+[N,  "good fortune misfortune"],
+[ADJ, "joyful glad happy surprised"],
+[V, "laugh, smile],
+[V,  "play  ,O ]  //O ->  "with N"
+[VP, "love",N]
+ADJ->  [ashamed, guilty, [of Sopt]]
+[ADJ, "angry, furious, envious, jealous, pain,  anxious,  sad, grieve,,regret, pity"]  [ of St, with someone]
+avenge + N, VP
+[V, "hope, fear, dare" , S] ,
+[V, "hate suspect disdain, thank,  trust, forgive" , N],
+[ADJ "honorable, glorious, proud, daring, brave,, indignant, snob, good, bad, grateful, dangerous, coward" ],
+
+mind & thought
+[N, "mind intelligence idea"]
+[V, "reflect understand seem", remember  ]  understand you, something, that love is good
+[ADJ, ,"wise stupid  crazy,  
+
+language
+
+ADJ "be silent", 
+N-> "word name"
+VP -> "ask,answer,admit,confess,deny,request,promise,refuse,forbid, call,threaten,excuse", "to N", , "S," ]
+[Nopt, "to"," N"]
+[Nopt,""]
+
+	//social relations
+ 
+[VP, "order command obey  permit compel help prevent hurt conspire-to", S]
+[N, "friend ally"]
+
+	// war
+
+[V, "win lose fight attack defend retreat surrender ambush", "V,"],
+[N, "peace war enemy captive prisoner"],
+ 
+
+	// law
+
+[VP, "judge, decide, swear, accuse, condemn, convict, acquit, punish, kill, rob, rape", N]
+[N, "witness oath penalty crime"],
+[ADJ, "guilty innocent"],
+
+ 
+
+	//religion, moral 
+
+[V, "bless,curse,offer,pray,preach"],
+[N , "superstition, magic, spirit, priest, religion, god, worship"],
+[ADJ, "just, free, caring, loyal, deferent, holy"],
+
+	// suffix, tense
+
+[ADJ , "of", N],
+[VP, "be", ADJ],
+[V, "will" ,V ],
+[V, V,"-ed"],
+[V, V,"-ing"],
+[N, ADJ ,"-ness"] ,
+[ADV, ADJ ,"-ly"] ,
+[ADJ, ADJ ,"-ish"], 
+[N, "the" + V],
+[N, "the" + V, "-ing" ],
+
+//entertainment: "dance, sing, , story-tell, role-play, 
+[N ," theatre, art, humor, math" ],
+[ADJ, "humorous"]
+]
+
+
+rules2 = {}
+for (var i=0; i< rules.length; i++){
+	r = rules[i];
+	r0 = r[0]
+	rules2[ r0 ] = rules2[ r0 ] | []
+	r.shift()
+	seq = []
+	for (var j=0; j< r.length; j++)	
+		seq .append( r[i].split(",").map(String.trim)  );
+	rules2[ r0 ].append( seq)	
+}
+
+function rndl( a ){
+	idx = Math.floor( Math.random() * a.length);
+	return a[idx]	
+}
+
+
+function get(X){
+	setofrulesX = rules2[X];
+	if (! ) return X;
+	somerule = rndl( setofrulesX );
+
+	ret = '';
+	 
+	for (var i=0; i< rx.length; i++){
+		rxi = rx[i];
+		if (rxi instanceof Array)
+			rxi = rndl( rxi ) ;
+		ret += get(rx[i] );
+	}
+	return ret;
+}
+
+for (var i=0; i< 20; i++)
+	out.innerHTML += '<br>' + get(S);
+
+
+</script>
+</body>
+</html>
+
+
