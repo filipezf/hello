@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-4"/>
+
+<script type="text/javascript" >
+var gCanvas; 
+var ctx = [];
+var dna = [];
+var td = []
+
+N = 32
+
+L = 4
+
+
+function init() {
+	var s = document.createElement("div");
+	str = 	 "<table><tbody><tr>"
+	for (var i=0; i< 32; i+=1){
+		if (i %8==0) str+= "</tr><tr>"
+		str += "<td id=t"+i+">i<canvas  height=128 width=128 id=c"+i+"></canvas></td>" 
+		
+	}
+	str += "</tr></tbody></table>"
+	
+	s.innerHTML = str
+	document.body.appendChild( s );
+
+	for (var i=0; i<N ; i+=1){
+		var cnv = document.getElementById('c' + i );
+		cnv.onclick = f		
+		ctx[i] = cnv.getContext("2d");  
+		dna[i] = '0 '.repeat(L*L-1).split(' ').map(rnd);
+		td[i] = document.getElementById( 't' + i );
+	}
+	paint();	
+}
+function rnd(){ return Math.random(); }
+
+function f(e){
+	var id =   parseInt( e.target.id.replace('c','') )
+	if ( td[id].style.length == 0){
+		td[id].style = "background-color:red"	;
+		
+	}else{
+		td[id].style = ""
+	}
+}
+function paint(){
+	for (var i=0; i< N; i++){
+		td[i].style = "";
+		paintCanvas(i);		
+	}
+}	
+function paintCanvas(i){
+	var dx = 128 / L
+	ctx2 = ctx[i]
+	for (var x=0; x< L; x++){
+	for (var y=0; y< L; y++){	
+		ctx2.fillStyle = color( dna[i][x*L+y] ) 
+		ctx2.fillRect(x*dx, y*dx, dx,dx);
+	}}
+}
+function color( v ){
+	//v = Math.floor(v*8);
+	r =  (v>>0 & 1) ? 'FF' : '00' 
+	g =  (v>>1 & 1) ? 'FF' : '00' 
+	b =  (v>>2 & 1) ? 'FF' : '00' 
+	//console.log(v, r,g,b)
+	//return "#" + r + g + b;
+
+	r = Math.floor(256 * v).toString(16)
+	return "#" + r+r+r	
+
+}
+function mate(){
+	best = []
+	for (var i=0; i< N; i++){
+		if ( td[i].style.length > 0)
+			best.push( dna[i] );	
+	}
+	for (var i=0, j=0; i < N; i++, j+=2){
+		dna[i]   = cross( best[i % best.length], best[j  % best.length] )
+	}
+	paint()	
+}
+function cross( a, b){
+	var c = []
+	var k = Math.random()*1.5 -0.25;
+	for (var i=0; i< L*L; i++)
+		if (Math.random() > 0.1)
+			c.push( limit(a[i]*k + b[i]*(1-k))  )
+		else 	c.push( Math.random());
+	return c;
+
+}
+function limit(v){
+	if (v<0) return 0;
+	if (v>1) return 1;
+	return v;
+}
+
+</script>
+
+</head>
+
+<body onload="init()" >
+
+<div id='div1' onclick="mate()">---- OK ----</div>
+
+</body>
+</html>
