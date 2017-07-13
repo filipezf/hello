@@ -10,7 +10,32 @@ var td = []
 
 N = 32
 
-L = 4
+L = 8
+
+var m2=[
+[0,0,0,0,1,1,1,1],
+[1,1,1,1,0,0,0,0],
+[0,0,1,1,1,1,0,0],
+[1,1,0,0,0,0,1,1],
+
+[0,0,1,1,0,0,1,1],
+[1,1,0,0,1,1,0,0],
+[0,1,1,0,0,1,1,0],
+
+[0,1,0,1,0,1,0,1],
+[1,0,1,0,1,0,1,0]
+]
+
+var m=[
+[1,1,1,1,1,1,1,1],
+[0,0,0,0,1,1,1,1],
+[0,0,1,1,1,1,0,0],
+[0,0,1,1,0,0,1,1],
+[0,1,1,0,0,1,1,0],
+[0,1,1,0,1,0,0,1],
+[0,1,0,1,1,0,1,0],
+[1,0,1,0,1,0,1,0]
+]
 
 
 function init() {
@@ -18,7 +43,7 @@ function init() {
 	str = 	 "<table><tbody><tr>"
 	for (var i=0; i< 32; i+=1){
 		if (i %8==0) str+= "</tr><tr>"
-		str += "<td id=t"+i+">i<canvas  height=128 width=128 id=c"+i+"></canvas></td>" 
+		str += "<td id=t"+i+">.<canvas  height=128 width=128 id=c"+i+"></canvas></td>" 
 		
 	}
 	str += "</tr></tbody></table>"
@@ -26,16 +51,24 @@ function init() {
 	s.innerHTML = str
 	document.body.appendChild( s );
 
+	for (var k=0; k<L ; k+=1){
+		m[0][k] = 0.5
+		for (var n=1; n<L ; n+=1)
+			m[n][k] = Math.cos(Math.PI/L*n*(k+0.5))
+	}
+
+
 	for (var i=0; i<N ; i+=1){
 		var cnv = document.getElementById('c' + i );
 		cnv.onclick = f		
 		ctx[i] = cnv.getContext("2d");  
-		dna[i] = '0 '.repeat(L*L-1).split(' ').map(rnd);
+		dna[i] = rndna();
 		td[i] = document.getElementById( 't' + i );
 	}
 	paint();	
 }
 function rnd(){ return Math.random(); }
+function rndna(){ return '0 '.repeat(L*L-1).split(' ').map(rnd);}
 
 function f(e){
 	var id =   parseInt( e.target.id.replace('c','') )
@@ -49,15 +82,22 @@ function f(e){
 function paint(){
 	for (var i=0; i< N; i++){
 		td[i].style = "";
-		paintCanvas(i);		
+		ctx[i].score = paintCanvas(i);		
 	}
 }	
 function paintCanvas(i){
 	var dx = 128 / L
-	ctx2 = ctx[i]
+	ctx2 = ctx[i] 
+
 	for (var x=0; x< L; x++){
-	for (var y=0; y< L; y++){	
-		ctx2.fillStyle = color( dna[i][x*L+y] ) 
+	for (var y=0; y< L; y++){
+		var sum = 0, sum2 = 0
+		//sum = dna[i][x*L+y]*L*L
+		for (var x0=0; x0< L; x0++){
+		for (var y0=0; y0< L; y0++){
+			sum += m[x][y0]*m[y][x0]*(2*dna[i][x0*L+y0] - 1);
+		}}
+		ctx2.fillStyle = color(  sum/2/L + 0.5 ) ;
 		ctx2.fillRect(x*dx, y*dx, dx,dx);
 	}}
 }
@@ -80,16 +120,24 @@ function mate(){
 			best.push( dna[i] );	
 	}
 	for (var i=0, j=0; i < N; i++, j+=2){
-		dna[i]   = cross( best[i % best.length], best[j  % best.length] )
+		if (i< best.length)
+			dna[i] = best[i]
+		else {
+			if (Math.random()<0.5)
+				dna[i]   = cross( best[i % best.length], best[j  % best.length] )
+			else
+				dna[i]   = cross( best[i % best.length], rndna() )
+		}
 	}
-	paint()	
+	paint()	;
 }
 function cross( a, b){
 	var c = []
 	var k = Math.random()*1.5 -0.25;
 	for (var i=0; i< L*L; i++)
-		if (Math.random() > 0.1)
-			c.push( limit(a[i]*k + b[i]*(1-k))  )
+		if (Math.random() > 0.2)
+			c.push( rnd()>0.5 ? a[i] : b[i]  )
+			//c.push( limit(a[i]*k + b[i]*(1-k))  )
 		else 	c.push( Math.random());
 	return c;
 
