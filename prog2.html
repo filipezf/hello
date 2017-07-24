@@ -1,0 +1,79 @@
+<html><body>
+
+<span id='fff'>abc</span>
+
+<input type='text' width=40 id='abc' />
+
+<button  type="button" onclick='javascript:run()'>Run</button><br>
+<input type='text' width=40 id='out' />
+
+
+
+<script>
+
+
+function run(){
+	var text = document.getElementById('abc')
+	var seq = text.value.split(' ')
+
+	var hip = [];
+		
+	for (var i=0; i<20000; i++){
+		var expr = get( 'N' ,Math.random()*5 ) 
+		//console.log( expr)
+		var f = new Function('i','x' ,'return '+expr);
+		hip.push({ expr: expr, f:f, v: test(seq, f, expr.length)  } )
+	}
+	hip.sort( function(a,b){ return a.v - b.v } )
+r
+	console.log( hip[0].v, hip[0].expr)
+	test(seq, hip[0].f)
+	
+}
+function test(seq, g, len){
+	var sum = 0;
+	for (var i=0, x=0; i<seq.length; i++){
+		sum += Math.abs( seq[i] - (x = g(i, x)) )
+		if ( ! len) console.log( seq[i], i ,x )
+	}
+	if (Number.isNaN(sum)) return 99999;
+	return sum + len/1000;
+}
+
+function coin(p){ return Math.random() < p }
+function rnd( s) {
+	s = s.split(' ');
+	idx = Math.floor( s.length * Math.random() );
+	return s[idx];
+}
+function get(expr, cnt){
+	var old = expr
+	if (cnt > 0){
+		v = Math.random()*12;
+		if (v < 7)	expr = expr.replace( 'N', '(N' + rnd('+ - * / %') +'N)' );
+		else if (v < 13)expr = expr.replace( 'N', '(B?N:N)' );
+		if (v < 3)	expr = expr.replace( 'N', '(N' +rnd('> < ==')+ 'N)' );
+		else if (v<6)	expr = expr.replace( 'N', '(B&&B)' );
+		else if (v<9)	expr = expr.replace( 'N', '(B||B)');
+		else if (v<11)	expr = expr.replace( 'N', '~(B)');
+				expr = expr.replace( 'N', 'function f99(a,b,c){a,b,c}(if --_f99<0)return 0;'+code);
+
+	}else{ i99 =0;
+							i99
+		if (coin(0.5) )	expr = expr.replace( 'N',  n() )
+		else 		expr = expr.replace( 'N', rnd('i x') )
+		expr = expr.replace( 'B', rnd('1 0') )
+	}
+	if (old == expr) return expr;
+	else return get( expr, cnt-1);	
+}
+function n(){
+	var x =1/Math.random()-1
+	return Math.floor(x*100)/100
+}
+
+</script>
+
+</body></html>
+
+
