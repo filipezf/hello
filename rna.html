@@ -1,0 +1,148 @@
+<html>
+<body>
+<script>
+
+
+letters = 'a b c d e'.split(' ');
+function rnd(){
+	return Math.random();
+}
+function coin(p){ return rnd() < p}
+function rndi(i){
+	return Math.floor(rnd() * i);
+}
+
+var map = []
+for (var x=0; x < L; x++){
+map[x] = []
+for (var y=0; y < L; y++){
+	var s = ''
+	for (var i=0; i< 5; i++)
+		s += letters[ rndi(5) ]
+	map[x][y] = s
+}}
+
+
+function step(){
+
+	//diffuse
+
+	for (var x=0; x < L; x++){
+	for (var y=0; y < L; y++){
+		if (x > 0 && y > 0 && coin(0.5) )
+			rotate(x,y)
+	}}
+
+
+	// create/destroy rna
+
+	for (var x=0; x < L; x++){
+	for (var y=0; y < L; y++){
+		if ( coin( 0.1) )
+			map[x][y] = ''
+
+		if ( map[x][y] == ''){
+
+		var rx=0, ry=0, v0  =0;	
+		ws = []	, ts = []
+		for (var dx = 0; dx < L; dx++){
+		for (var dy = 0; dy < L; dy++){
+			var x2 = (x+dx + L) % L, y2 = (y+dy+L)%L;
+			var v = poly(x2,y2 )
+			var param = maxLetter( map[x2][y2] )
+			var speed = param[3]			
+			var template = rndnear( x2, y2)
+			w = v *speed / (1+ template.length)
+			ws[ dx+1 + (dy+1)*3] = w;
+			ts[ dx+1 + (dy+1)*3] = template
+		}	
+		idx = choose( ws)
+		var dx = idx %3-1, dy = idx/3 -1
+		var x2 = (x+dx + L) % L, y2 = (y+dy+L)%L;
+		var param = maxLetter( map[x2][y2] )
+		var template = ts[idx];
+		map[x][y] = copy(param[4], template)
+		}
+		
+	}}
+
+
+}
+function choose( ws){
+	var sum=0, i;
+	for ( i=0; i< ws.length; i++)
+		sum += ws[i];
+	sum *= rnd();
+	for (i=0; sum > 0; i++)
+		sum -= ws[i];
+	return i-1;
+}
+
+function rndnear(x2,y2){
+	var d = [[0,1],[1,0],[0,-1],[-1,0]][rndi(4)];
+	var x3 = (x2 + d[0] + L) % L, y3 = (y2 + d[1] + L)%L;
+	return map[x3][y3];
+}
+
+function copy(f, template)
+	error = 0.2/ (1+ f*f)
+
+	ret =[];
+	for (var j=0, i=0;  i< template.length; i++, j++){
+		ret[j] = template[i];
+		if (coin(error)) {
+			ret[j] = letters[ rndi(3) ]
+			j++
+		}
+		if (coin(error) j--;
+	}
+	return ret.join('');
+}
+
+
+function poly(x,y){
+	sum = [0,0,0]
+	for (var dx=-1; dx <= 1; dx++){
+	for (var dy=-1; dy <= 1; dy++){
+		ret = maxLetter( map[x][y] )
+		for (var i=0; i< 3; i++)
+			sum[i] += ret[i]
+	}
+	var prod =1;
+	for (var i=0; i< 3; i++)
+		prod *= sum[i];
+
+	return Math.pow(prod, 1.0/3 );
+}
+
+
+function rotate(x,y){
+	var aux = map[x][y];
+	map[x][y] = map[x][y-1]
+	map[x][y-1] = map[x-1][y-1]
+	map[x-1][y-1] = map[x-1][y]
+	map[x-1][y] = aux;
+}
+
+
+var maxLetter(rna){
+	ret = [];
+
+	for (var i=0; i< letters.length; i++) {
+		ret = [];
+		letr = letters[i]
+		seq = '';
+		while( rna.search( seq) >=0 )
+			seq += letr;
+		ret[i] = seq.length -1;
+	}
+	return ret;
+}
+
+
+
+
+
+</script>
+</body>
+</html>
